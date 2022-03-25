@@ -1,0 +1,97 @@
+
+
+.main-row{
+    background-image: url('../images/new.jpg') !important;
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.imgcontainer{
+    text-align: center; padding-top: 25px;
+}
+.imgcontainer img{
+    max-width:7wh; max-height:15vh;
+}
+.welcome{
+    text-align: center; font-weight:bolder;margin-top: 10px; color: white; 
+}
+
+.md-form{
+    width:50%;height: 5%;
+}
+.md-form .icon{
+    margin-bottom: 0; 
+}
+.fprow {
+    margin-top: -32px;
+}
+.fprow a{
+    text-align: right !important; text-decoration: none;color: white; 
+}
+.loginbtn{
+    border-radius: 10px !important;
+    background-color: #32BF0B !important;
+    color: #f1f1f1 !important; 
+   
+}
+.md-form{
+    margin-top: -0.5rem !important;
+}
+.form-control{
+    color: white !important;
+}
+
+.newacc {
+    justify-content: center; margin-top: 10px;  
+}
+.newacc a{
+    text-decoration: none; color: #32be8f;
+}
+
+@media only screen and (max-width: 480px) {
+.main-row{
+    height: 100vh !important;
+    
+}
+.fprow a{
+    margin-right: 50px;
+}
+}
+
+.md-form input[type="text"]:not(.browser-default):focus:not([readonly]){
+
+    border-bottom: 1px solid #32be8f !important;
+    
+    box-shadow: 0 1px 0 0 #32be8f !important;
+}
+
+
+.md-form input[type="text"]:not(.browser-default):focus:not([readonly])+label{
+    color: white !important;
+}
+
+.uname:focus{
+    color: white !important;
+}
+.upass:focus{
+    color: white !important;
+}
+.icon span{
+    margin-top: -38px;
+    margin-left: -23px;
+    position: absolute;
+    
+}
+.md-form label{
+    color: white !important;
+}
+i{
+    color: #32C0EA;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white !important;
+    opacity: 1; /* Firefox */
+  }
+

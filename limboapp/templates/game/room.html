@@ -1,0 +1,532 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Game</title>
+      
+        <link  rel="stylesheet" href="{% static 'css/style.css' %}"/>
+
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  
+    </head>
+    <style>
+        .loader * {
+            pointer-events: none; 
+        }
+        #dropid{
+            height: 200px;
+            margin-right: 50px !important;
+            /* margin: auto; */
+
+        }
+       
+
+        .dropcol .img{
+            margin: 20px !important;
+        }
+        #my-item{
+            background-image: url('/media/greenback.jpg');
+            height: 100vh;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .spinnerdiv{
+            display: none;
+        }
+       
+    </style>
+
+    <body>
+        <section id="my-item" class="loader">
+            <div id="double">      
+
+            </div>
+            <div class="container-fluid spinnerdiv" id ="spinnerdiv"> 
+                <div class="row justify-content-center">
+                  <div class="spinner-border" role="status" style="color: white;">
+                       <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <strong style="color: white;">Another Player's Turn</strong>
+                </div>
+              </div>
+            <h3 style="text-align: center; font-size: 45px; font-weight: 700;color: white; font-style: italic;
+            font-family: -webkit-body;"> WELCOME :{{ username }}</h3> 
+            
+
+            <h2 style=" font-size: 45px; font-weight: 700;font-style: italic;
+            font-family: -webkit-body; text-align: center; color: white;" >Score:<b id="score"></b></h2>
+
+            <div id="my-item1">
+                <div class="container">
+                    <div class="row">
+                        <div class="col text-center ">
+                            <h3 class="text-white mx-auto" style="font-style: italic;
+                            font-family: -webkit-body;">Your Cards</h3>
+                        </div>
+                    </div>
+                </div>
+            <div class="container" >
+                
+
+                <div class="row" >
+                    {% for x in player1_cards %}
+                    <div class="col-md text-center" style=" display: inline-flex;">
+                        
+                       
+                        <img src="/media/{{x}}.jpg" style="height: 200px; " data-id="{{x}}" id="{{x}}" class='eventBinding mx-4' alt="">
+                    </div>
+                    {% endfor %}
+
+                </div>
+               
+
+                
+         
+           
+        </div>
+        
+       
+        <div class="container" >
+            <div class="row">
+                {% for x in player2_cards %}
+                <div class="col-md text-center dropcol">
+                    
+                   
+                    <img src="/media/{{x}}.jpg" style="height: 200px;" data-id="{{x}}" id="{{x}}" class='eventBinding' alt="">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="container">
+            <div class="row" >
+                <div class="col text-center text-white" style="font-weight: 100; font-size: 30px;" id="droprow">
+
+                </div>
+            </div>
+            <div class="row " >
+                <div class="col-md text-center" id="dropcards" >
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+        </section>
+
+       {{ room_name|json_script:"json-roomname" }}
+       {{ username|json_script:"json-username" }}
+       {{ w1|json_script:"json-current_user" }}
+       {{ disable_turn|json_script:"json-disable_turn" }}
+
+       
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+         <script>
+            
+            var roomName = JSON.parse(document.getElementById('json-roomname').textContent);
+            var userName = JSON.parse(document.getElementById('json-username').textContent);
+            var currentUser = JSON.parse(document.getElementById('json-current_user').textContent);
+            var disableTurn = JSON.parse(document.getElementById('json-disable_turn').textContent);
+            var turn1;
+            var turn2;
+           
+           
+            const x=currentUser;
+           
+            var score = 101;
+            let picda;
+            document.querySelector('#score').innerHTML += ('<b>' + score + '</b>' + '<br>');
+            var usedcards=[];
+            var usedcards1=[];
+            var usedcards2=[];
+            var currentscore;
+            var currentscorer;
+            var lastcard='';
+            var dropcards='';
+           
+            var doc;
+            var doubleproperty;
+            
+            let a;
+
+
+            window.onload = function () {
+                if(currentUser == 1){
+                    $('#my-item').removeClass('loader');
+                    $('#spinnerdiv').addClass('spinnerdiv');
+                 
+
+                }
+                else{
+           
+                    $('#my-item').addClass('loader');    
+                    $('#spinnerdiv').removeClass('spinnerdiv');
+               
+                
+                   
+                }
+            }
+            
+            console.log(doubleproperty);
+           
+            function forj() {
+                vdoc = prompt("Please enter 1 for king, 2 for Queen, 3 for jack",
+                    );
+             
+            }
+            function fork() {
+                vdoc = prompt("Please enter no higher than 1 and lower than the current with no remainder");
+             
+            }
+            
+            function forint() {
+                vdoc = prompt("Please press 1 for divide or 2 for subtract");
+             
+            }
+            function announcewinner(){
+                if(currentscorer == x){
+                    score=score*10;
+                    alert("you lose the match and your score is " +(score));
+
+                }
+                else{
+                    alert("you win");
+                }
+            }
+            
+            function scorecheck(){
+             
+                lastcard=picda;
+                
+                if (score<=0 ){
+                    currentscorer=x
+
+                    score=currentscore;
+                    announcewinner();
+                    
+                }   
+                else{
+                    currentscorer=x;
+                    if (x ==1){
+                        usedcards1.push(lastcard);
+                    
+                        
+
+                    }
+                    else{
+                        usedcards2.push(lastcard);
+                       
+                      
+
+                    }
+                }
+                }
+            
+            
+            $('.eventBinding').on('click', function() {
+                picda = $(this).data('id');
+                
+               
+
+                if (picda == "AH" || picda == "AD" || picda == "AS" || picda == "AC") {
+                    
+                    score=score-1;
+                    currentscore=score;
+                    lastcard=picda;
+                    scorecheck();
+                }
+                else if (picda == "JH" || picda == "JD" || picda == "JS" || picda == "JC"){
+                  
+                    
+                    if (lastcard == "QH" || lastcard == "QD" || lastcard == "QS" || lastcard == "QC"){
+                            
+                            currentscore=score;
+                            lastcard=String(score).split("").reverse().join("");
+                            if (lastcard<currentscore){
+                                currentscore=score;
+                                score=lastcard;
+                                lastcard=picda;
+                                scorecheck();
+                            }
+                            else if((''+lastcard).length < 2){
+                                currentscorer=x;
+                                announcewinner();
+
+                            }
+                            else{
+
+                                currentscore=score;
+
+                            
+                                score=score;
+                                scorecheck();
+  
+                            }
+                    }
+                    else if (lastcard == "KH" || lastcard == "KD" || lastcard == "KS" || lastcard == "KC"){
+                        fork();
+                        currentscore=score;
+                        if (score%vdoc == 0 ){
+                            currentscore=score;
+                            score=score/vdoc;
+                            lastcard=picda;
+
+                            scorecheck();
+                        }
+                        else{
+                            currentscore=score;
+                          
+                            score=score;
+                            
+                            scorecheck();
+
+                        }
+                    }
+                    else if (lastcard == "AH" || lastcard == "AD" || lastcard == "AS" || lastcard == "AC"){
+                        currentscore=score;
+                        score=score-1;
+                        lastcard=picda;
+                        scorecheck();
+
+                    }
+                    else{
+                 
+
+                        total = parseInt(lastcard);
+                        if (score%total == 0 ){
+                            currentscore=score;
+                            forint();
+                            if (vdoc == 1){
+                                currentscore=score;
+                                score=score/total;
+                                lastcard=picda;
+                               
+                                scorecheck();
+                            }
+                            else if(vdoc == 2){
+                                currentscore=score;
+                                score= score-total;
+                                lastcard=picda;
+                                scorecheck();
+                                
+                            }
+                            else{
+                                currentscore=score;
+                                picda=0;
+                                score=score;
+                                alert("wrong input !!")
+                            }
+
+                        }
+                        else{
+                            currentscore=score;
+                            score=score-total;
+                            lastcard=picda;
+                            
+                            scorecheck();
+                        }
+                        
+                    }
+
+              
+                }
+                else if (picda == "QH" || picda == "QD" || picda == "QS" || picda == "QC"){
+                    currentscore=score;
+                    var a=String(score).split("").reverse().join("");
+                    if (a<currentscore){
+                        currentscore=score;
+                        score=a;
+                        scorecheck();
+                    }
+                    else if((''+lastcard).length < 2){
+                        currentscorer=x;
+                        announcewinner();
+
+                    }
+                    else{
+                        currentscore=score;
+                        // picda=0;
+                        score=score;
+                        // alert("move is not valid");                      
+                    }
+                   
+                    
+
+                  
+                }
+                else if (picda == "KH" || picda == "KD" || picda == "KS" || picda == "KC"){
+                    fork();
+                    if (score%vdoc == 0 ){
+                            currentscore=score;
+                            score=score/vdoc;
+                            scorecheck();
+                        }
+                        else{
+                            currentscore=score;
+                            // picda=0;
+                            score=score;
+                           
+                        }
+                }
+                else{
+                   
+                    
+                    total = parseInt(picda);
+                    if (score%total == 0 ){
+                            forint();
+                            if (vdoc == 1){
+                                currentscore=score;
+                                score=score/total;
+                                scorecheck();
+                            }
+                            else if(vdoc == 2){
+                                currentscore=score;
+                                score= score-total;
+                                scorecheck();
+                                
+                            }
+                            else{
+                                currentscore=score;
+                                score=score;
+                                picda=0;
+                                alert("wrong input !!")
+                            }
+
+                        }
+                    else{
+                        currentscore=score;
+                        score=score-total;
+                        scorecheck();
+                    }
+                    
+                    
+                }
+                
+                chatSocket.send(JSON.stringify({
+                    'score': score,
+                    'username': userName,
+                    'room': roomName,
+                    'currentuser': currentUser,
+                    'picda': picda,
+                    'lastcard': lastcard,
+                    'dropcards': dropcards,
+                    'doubleproperty': doubleproperty,
+                    
+                }));
+
+                
+            });
+         
+            
+           
+            const chatSocket = new WebSocket(
+                'ws://'
+                + window.location.host
+                + '/ws/'
+                + roomName
+                + '/'
+            );
+          
+            function change1(){
+                if(x == currentUser ){
+                    $('#my-item').removeClass('loader');
+                    $('#spinnerdiv').addClass('spinnerdiv');
+                    document.getElementById(a).remove();
+                    
+
+                    
+
+                }
+                else{
+                    $('#spinnerdiv').removeClass('spinnerdiv');
+
+                    $('#my-item').addClass('loader');
+                    document.getElementById(a).remove();
+                }
+
+            }
+            
+            chatSocket.onmessage = function(e) {
+                // console.log('onmessage');
+
+                const data = JSON.parse(e.data);
+                
+               
+                if (data.score) {
+                    doubleproperty=data.doubleproperty;
+                    // console.log("double"+ data.doubleproperty);
+                    // doubleproperty=data.doubleproperty;
+                    
+
+                   
+                    document.querySelector('#score').innerHTML = "";
+                    score=data.score;
+                    document.querySelector('#score').innerHTML += (data.score);
+                    
+                    if (data.lastcard != 0){
+                        lastcard=data.lastcard
+
+                    }
+                    
+                    // console.log("hello");
+                    console.log("hello"+data.dropcards);
+                    a=data.dropcards.split(",");
+                    a=(a[a.length-1]);
+                   
+                    document.querySelector('#droprow').innerHTML = "";
+                    document.querySelector('#droprow').innerHTML += ('<b>' + "Drop Cards" + '</b>' + '<br>');
+                    var div = document.getElementById("dropcards");
+                    var image = document.createElement("img");
+                    image.id="dropid";
+                    image.className=a;
+                    image.src="/media/"+a + ".jpg";
+                    div.appendChild(image);
+
+
+                    // div.innerHTML += a;
+                    
+                    currentUser=data.currentuser;
+                    // console.log(currentUser);
+                    if (currentUser == 1 && data.lastcard !=0){
+                        usedcards2.push(a);
+                        // console.log(usedcards2);
+
+                        change1();
+                    }
+                    else if(data.lastcard !=0){
+                        usedcards1.push(a);
+                        // $('#spinnerdiv').removeClass('spinnerdiv');
+                        change1();
+                        // console.log(usedcards1);
+                
+
+                    }
+                   
+                    
+                } else {
+                    alert('The message is empty!');
+                }
+
+                // scrollToBottom();
+            };
+
+            chatSocket.onclose = function(e) {
+                console.log('The socket close unexpectadly');
+            };
+
+        
+        </script> 
+       
+
+
+    </body>
+</html>

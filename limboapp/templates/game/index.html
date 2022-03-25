@@ -1,0 +1,222 @@
+
+<!-- ////////////////////////// -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <!-- ///////// bootstrap and css links /////////////// -->
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+    <link  rel="stylesheet" href="{% static 'css/style.css' %}"/>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  
+  <!-- ----------------------------------- -->
+</head>
+<style>
+  
+  
+  </style>
+<body>
+<!-- ////////// body section start ///////////// -->
+   
+<div class="container-fluid">
+        <div class="row main-row align-content-center justify-content-center">
+           <!-- //////// column of 6 adjusted to center by properties in row /////////////// -->
+            <div class="col-md-6 login-content">
+                <!-- ///// form - start/////   -->
+                <!-- <form method="POST" action="userlogin" accept-charset="UTF-8" enctype="multipart/form-data">
+                  {% csrf_token %} -->
+                    <div class="imgcontainer">
+                        <img src="{% static 'images/avatar.svg' %}" alt="Avatar" class="avatar">
+                    </div>
+                    <h1 class="welcome">WELCOME TO LIMBO GAME</h1>
+
+                    <div class="container ">
+                        <!-- Material input -->
+                        <div class="row justify-content-center " >
+
+                            <div class="md-form">
+
+                                <div class="icon" >
+                                  <!-- <label class="text-center" >Username</label> -->
+
+                                    <input type="text" name="uname" id="room-name-input" placeholder="Room Id" class="form-control uname">
+                                    <span> <i class="far fa-id-card"></i></i></span>
+
+                                    
+                                   
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                        <div class="row justify-content-center " >
+
+                            <div class="md-form">
+
+                                <div class="icon" >
+                                    <input type="text" name="uname"  id="username-input" placeholder="Username" class="form-control uname">
+                                    <span> <i class="fas fa-user"></i></span>
+                                 
+                                    
+                                   
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                       
+                        <!-- <div class="row text-right justify-content-center">
+                            <div class="md-form text-left">
+                                <div class="icon" >
+                                 
+                                    <input type="text"  id="form2" placeholder="Password" class="form-control upass">
+                                    <span> <i class="fas fa-lock"></i></span>
+                                    <label class="plabel" for="form2" ></label>
+
+                                   
+                                </div>
+
+                            </div>
+                        </div>  -->
+                         <!-- <div class="row justify-content-center fprow" >
+                            <div class="col-md-6  text-right" >                  
+                                         <a class="" href="#">Forgot Password?</a>
+                            </div>
+ 
+                        </div> -->
+                        
+                    
+
+
+
+
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8 col-8 text-center">
+                                <button class="btn btn-block loginbtn" id="room-name-submit" type="submit"
+                                   >Login</button>
+                            </div>
+                        </div>
+                        <div class="row newacc mt-3">
+                            <div class="col-md-8 text-left" >
+                            <p class="text-white">Click<button href=""  style="border: none; background-color: transparent; color: #32C0EA;" id="modalbtn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">here</button>to learn how to play Limbo Game</p>
+                        </div>
+                        </div>
+                    </div>
+
+
+                <!-- </form> -->
+
+
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="max-width: 1000px !important;">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Limbo</h5>
+                   <!-- <button type="button" id="hidemodal" class="btn-close" data-bs-dismiss="modal" aria-label="Close">close</button>  -->
+                  <button type="button" id="hidemodal" style="background-color: #32be8f;color: white;" class="btn" data-bs-dismiss="modal">Close</button>
+                </div>
+                <div class="modal-body">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-8">
+                        Named after the dance Dancerrather than an indeterminate otherworld, and otherwise known as "Reductio ad absurdum", this is an old game of mine that I have just got round to (I hope) perfecting.
+                      <p>
+                        Cards: <br>
+                          Deal five cards each from a 52-card pack and stack the rest face up   
+                      </p>
+                      <p>
+                        Object: <br>
+Play begins with a count of 101, and as each card is played it reduces the count. The count may not be reduced below zero, and whoever plays the last card wins the deal.
+                      </p>
+                      <p>
+                        Doubling: <br>
+Before playing the first card the leader may announce "Double", in which case the winner's eventual score will be doubled. The second player may then either double, if the first does not, or redouble the leader's double, in which case the winner's score will be quadrupled
+                      </p>
+                      <p>
+                        Play: <br>
+Dealer takes the top card of the stock, places it face up on the table, deducts its value from 101, and announces the new total. If the starter is a face card, it counts as zero and leaves the count at 101. Then each in turn, starting with non-dealer, plays a card face up on the previous one and announces the new count. If you play a numeral (from Two = 2 to Ten = 10) its value is either deducted from the count or divided into the count. If it divides without remainder then it may not be deducted but must divide.
+Examples: Dealer turns a Five as the start card and announces "96". Non-dealer might then play a Seven and announce "89" (by deduction), or a Six and announce "16" (by division), but may not deduct 6 to make 90 (because division is possible and therefore mandatory). If the count has more than one divisor you may freely choose between them. Thus if the first card is 5, reducing the count to 96, and you hold 2,3,4,6,8, you may play any of them, to make the count respectively 48, 22, 24, 16, or 12.
+                      </p>
+                        <p>
+                          An Ace counts either 1 or 11, as you choose; but as you must always reduce the count you may only deduct it, not use it to divide by one. (Most games will end at a count of 1, but if the other player has an Ace they can - and indeed must - then deduct it to make zero.)
+                        </p>
+                        <p>
+                          Face cards: <br>
+Face cards have special properties, which may be summarised as "Jack repeats, Queen reverses, King divides". <br>
+Jack. A Jack played repeats the same value as the previous card, or assumes the same power if the previous card was a King or Queen.
+<br>
+Queen. A Queen reverses the digits of the current count. For example, if the count is 96, playing a Queen converts it to 69. However, you may only play a Queen if reversing the digits reduces the count. So, for example, a Queen is unplayable on counts such as 69, or even 66. (But note that a Queen played to a count of 60, for example, makes it 6.)
+<br>  King. A King divides by any desired number higher than 1 and lower than the current, provided that it leaves no remainder.
+                        </p>
+                        <p>
+                          End of play: <br>
+The hand ends when one player plays their last card or is unable to play without going below zero. If you play your last card you may, if possible, continue by playing the top card of the face-up stock, provided that it is legally playable. If not, your opponent may continue playing alone for as long as possible in order to increase their own score and reduce yours.
+                        </p>
+                        <p>
+                          Score: <br>
+Whoever played the last card is the winner and scores 10 times the number of cards played (counting the starter), while the loser scores 10 times the value of the final count (which may be zero). Any doubling or redoubling that may have taken place is applied only to the winner's score, not the loser's. The winner then deals to the next hand. It seems unnecessary to shuffle: you can just keep playing through the pack to the end of the game.
+                        </p>
+                        <p>
+                          Game: <br>
+Play up to 200 points, or any other agreed target, or for any number of deals, or until you get fed up with it.
+                        </p>
+                      </div>
+                      <div class="col-md-4">
+                        <img src="{% static 'images/limbo.jpg'%}" style="width: 100%;" alt="">
+                      </div>
+                    </div>
+                  </div>
+                
+                </div>
+                
+              </div>
+            </div>
+          </div>
+    </div>
+   
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <!-- <script src="{% static 'js/mdb.min.js' %}"></script> -->
+   
+    <script src="{% static 'js/login.js' %}"></script>
+    <script>
+     $(document).ready(function(){
+  $("#modalbtn").click(function(){
+    $("#exampleModal").modal('show');
+  });
+});
+    </script>
+    <script>
+     $(document).ready(function(){
+  $("#hidemodal").click(function(){
+    $("#exampleModal").modal('hide');
+  });
+});
+    </script>
+     <script>
+        document.querySelector('#room-name-input').focus();
+        // document.querySelector('#username-input').focus();
+
+        document.querySelector('#room-name-submit').onclick = function(e) {
+            var roomName = document.querySelector('#room-name-input').value;
+            var userName = document.querySelector('#username-input').value;
+
+            window.location.replace(roomName + '/?username=' + userName);
+        };
+    </script>
+
+</body>
+</html>
